@@ -1,18 +1,999 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>Owen Thomas</title>
-</head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Owen Thomas</title>
+<meta name="description" content="Owen Thomas — statistician, writer, and musician.">
+<meta name="theme-color" content="#392b3a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+/* ---------------------------------------------------------
+   owenthomas.no — design tokens
+   Palette:  Pantone "Love Symbol #2" purple / white / warm gold accent
+   NOTE on the purple: Pantone never publicly released official
+   RGB/hex/CMYK values for Love Symbol #2. #4B384C is the value
+   commonly cited by designers as the closest match — swap it out
+   here if you get hold of the real swatch.
+   Type:     one cohesive family, IBM Plex — Sans for headings and
+             body, Mono for nav/labels/numerals.
+   --------------------------------------------------------- */
 
+:root {
+  --bg: #4b384c;
+  --bg-deep: #392b3a;
+  --surface: #5f4a61;
+  --ink: #ffffff;
+  --ink-soft: #f1e9f2;
+  --rule: rgba(255, 255, 255, 0.2);
+  --rule-strong: rgba(255, 255, 255, 0.42);
+  --accent: #f0c674;
+  --accent-ink: #3a2b3b;
+  --accent-soft: rgba(240, 198, 116, 0.16);
+
+  --font-display: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 40rem;
+  --gutter: clamp(1.5rem, 5vw, 4rem);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+a {
+  color: var(--ink);
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.15em;
+}
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+p { margin: 0 0 1.2em; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- layout shell ---------- */
+
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- header / nav ---------- */
+
+.site-header {
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.6rem 0 1.2rem;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-mark {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.primary-nav[role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+}
+
+.primary-nav [role="tab"] {
+  text-decoration: none;
+  color: var(--ink);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font: inherit;
+  letter-spacing: inherit;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.primary-nav [role="tab"]:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.primary-nav [role="tab"][aria-selected="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+/* ---------- tab panels ---------- */
+
+.tabpanel[hidden] { display: none; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  padding: clamp(2.5rem, 7vw, 5rem) 0 2.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+}
+
+.hero .tagline {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin-bottom: 1.8rem;
+}
+
+.hero .lede {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+}
+
+.hero .lede p:last-child { margin-bottom: 0; }
+
+/* ---------- page header (non-home pages) ---------- */
+
+.page-header {
+  padding: clamp(2rem, 6vw, 3.2rem) 0 1.6rem;
+}
+
+.page-header h1 {
+  font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+}
+
+.page-header .dek {
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+
+/* ---------- contents list (signature component) ---------- */
+
+.contents {
+  list-style: none;
+  margin: 1rem 0 3rem;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.contents li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.contents a {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  padding: 1.15rem 0.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.contents a:hover {
+  background: var(--accent-soft);
+}
+.contents a:hover .num { color: var(--accent); }
+.contents a:hover .entry-title { color: var(--accent); }
+
+.contents .num {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--rule-strong);
+  min-width: 1.6rem;
+}
+
+.contents .entry {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.contents .entry-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.contents .entry-desc {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.contents .arrow {
+  font-family: var(--mono);
+  color: var(--rule-strong);
+}
+.contents a:hover .arrow { color: var(--accent); }
+
+/* ---------- section blocks ---------- */
+
+.section {
+  padding: 2.2rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.section:first-of-type { border-top: none; }
+
+.section .eyebrow { margin-bottom: 0.6rem; }
+
+.section h2 {
+  font-size: 1.4rem;
+}
+
+.section .body {
+  max-width: var(--measure);
+  color: var(--ink);
+}
+
+.section .body p { color: var(--ink-soft); }
+
+/* ---------- simple lists (publications, talks, links) ---------- */
+
+.plain-list {
+  list-style: none;
+  margin: 0.8rem 0 0;
+  padding: 0;
+}
+
+.plain-list li {
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.plain-list .meta {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+.plain-list .title { font-weight: 600; }
+
+/* ---------- external link chip row ---------- */
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  padding: 0.5rem 0.85rem;
+  border-radius: 2px;
+}
+
+.chip:hover {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------- placeholder callouts (for you to edit) ---------- */
+
+.todo {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-left: 2px solid var(--accent);
+  padding: 0.6rem 0.9rem;
+  margin: 0.8rem 0;
+}
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  background: var(--bg-deep);
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+  padding: 1.6rem 0 3rem;
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.site-footer a { color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 640px) {
+  .primary-nav[role="tablist"] { gap: 0.75rem 1rem; }
+  .contents a { gap: 0.75rem; }
+}
+
+/* ---------- print (mainly for the CV panel's Print/Save as PDF) ---------- */
+
+@media print {
+  body { background: #fff; color: #111; }
+  .site-header, .site-footer, .todo, #panel-cv .chip-row { display: none; }
+  h1, h2, h3 { color: #111; }
+  .section, .page-header { border-color: #ccc; }
+  a { color: #111; text-decoration: underline; }
+}
+
+</style>
+<noscript><style>.tabpanel[hidden]{display:block;} [role="tablist"]{display:none;}</style></noscript>
+</head>
 <body>
 
-<h1>Owen Thomas</h1>
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-mark" href="#home">Owen Thomas</a>
+    <div class="primary-nav" role="tablist" aria-label="Primary">
+      <a role="tab" id="tab-home" href="#home" data-tab="home" aria-controls="panel-home" aria-selected="true" tabindex="0">Home</a>
+      <a role="tab" id="tab-about" href="#about" data-tab="about" aria-controls="panel-about" aria-selected="false" tabindex="-1">About</a>
+      <a role="tab" id="tab-research" href="#research" data-tab="research" aria-controls="panel-research" aria-selected="false" tabindex="-1">Research</a>
+      <a role="tab" id="tab-writing" href="#writing" data-tab="writing" aria-controls="panel-writing" aria-selected="false" tabindex="-1">Writing</a>
+      <a role="tab" id="tab-music" href="#music" data-tab="music" aria-controls="panel-music" aria-selected="false" tabindex="-1">Music</a>
+      <a role="tab" id="tab-podcast" href="#podcast" data-tab="podcast" aria-controls="panel-podcast" aria-selected="false" tabindex="-1">Podcast</a>
+      <a role="tab" id="tab-cv" href="#cv" data-tab="cv" aria-controls="panel-cv" aria-selected="false" tabindex="-1">CV</a>
+      <a role="tab" id="tab-contact" href="#contact" data-tab="contact" aria-controls="panel-contact" aria-selected="false" tabindex="-1">Contact</a>
+    </div>
+  </div>
+</header>
 
-<p>Coming soon.</p>
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section id="panel-home" class="tabpanel" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+    <div class="hero wrap">
+      <h1>Owen Thomas</h1>
+      <p class="tagline">Statistician. Writer. Musician.</p>
+      <div class="lede">
+        <p class="todo">TODO — replace these three paragraphs with your own. Keep them short: who you are, what you spend your time on, and what a visitor can expect to find here.</p>
+        <p>I work as a statistician, which mostly means I spend my days thinking about uncertainty for a living and occasionally get to say something true about the world because of it.</p>
+        <p>Outside of that, I write about statistics, literature, history, and culture, and I play music — in a choir, in Irish traditional sessions, and in a band called Unquiet Grind.</p>
+        <p>This site is a hub rather than a destination — a place to find the research, the writing, and the music, wherever each of them actually lives.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul class="contents">
+        <li id="contents-writing">
+          <a href="#writing">
+            <span class="num">01</span>
+            <span class="entry">
+              <span class="entry-title">Essays</span>
+              <span class="entry-desc">Writing on statistics, literature, history, and culture — published on Substack.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+        <li id="contents-research">
+          <a href="#research">
+            <span class="num">02</span>
+            <span class="entry">
+              <span class="entry-title">Research</span>
+              <span class="entry-desc">Publications, software, and talks.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+        <li id="contents-podcast">
+          <a href="#podcast">
+            <span class="num">03</span>
+            <span class="entry">
+              <span class="entry-title">Statistorians</span>
+              <span class="entry-desc">A podcast, eventually. Episodes and links.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+        <li id="contents-music">
+          <a href="#music">
+            <span class="num">04</span>
+            <span class="entry">
+              <span class="entry-title">Music</span>
+              <span class="entry-desc">Choir, Irish traditional music, and Unquiet Grind.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/owenthomas" target="_blank" rel="noopener">
+            <span class="num">05</span>
+            <span class="entry">
+              <span class="entry-title">GitHub</span>
+              <span class="entry-desc">Code and software.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+        <li id="contents-contact">
+          <a href="#contact">
+            <span class="num">06</span>
+            <span class="entry">
+              <span class="entry-title">Contact</span>
+              <span class="entry-desc">Email and professional profiles.</span>
+            </span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="panel-about" class="tabpanel" role="tabpanel" aria-labelledby="tab-about" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">About</span>
+      <h1>Owen Thomas</h1>
+    </div>
+    <div class="section wrap">
+      <div class="body">
+        <p class="todo">TODO — this is the place for the longer version of your story: background, how you ended up working on what you work on, and how the different threads (statistics, writing, music) actually connect for you. Two or three paragraphs is plenty.</p>
+        <p>[A paragraph on background — where you trained, what drew you to statistics, and the shape of the work you do now.]</p>
+        <p>[A paragraph on the writing and music — why they sit alongside the research rather than as separate hobbies, if that's true for you.]</p>
+        <p>[Optional: a paragraph on what you're currently focused on, or what a visitor should read first.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESEARCH ============ -->
+  <section id="panel-research" class="tabpanel" role="tabpanel" aria-labelledby="tab-research" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">Research</span>
+      <h1>Research</h1>
+      <p class="dek">[One or two sentences on your research interests — what problems you work on and why.]</p>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Links</span>
+      <div class="chip-row">
+        <a class="chip" href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+        <a class="chip" href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a>
+        <a class="chip" href="https://github.com/owenthomas" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="todo">TODO — replace the three link URLs above with your actual Scholar, ORCID, and GitHub profile addresses.</p>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Publications</span>
+      <h2>Publications</h2>
+      <ul class="plain-list" id="publications-list">
+        <li>
+          <span class="title">[Paper title]</span>
+          <span class="meta">[Journal / venue] · [Year] · <a href="#">link</a></span>
+        </li>
+        <li>
+          <span class="title">[Paper title]</span>
+          <span class="meta">[Journal / venue] · [Year] · <a href="#">link</a></span>
+        </li>
+      </ul>
+      <p class="todo">TODO — set your real ORCID iD in ORCID_ID near the bottom of this file. Once set, this list loads your most recent works from ORCID automatically and these placeholders disappear. If the fetch fails (wrong iD, offline, etc.) these placeholders stay put as a fallback.</p>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Software</span>
+      <h2>Software</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Package or tool name]</span>
+          <span class="meta">[One-line description] · <a href="#">repository</a></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Talks</span>
+      <h2>Talks</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Talk title]</span>
+          <span class="meta">[Event / venue] · [Year] · <a href="#">slides</a></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section id="panel-writing" class="tabpanel" role="tabpanel" aria-labelledby="tab-writing" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">Writing</span>
+      <h1>Writing</h1>
+      <p class="dek">I write about statistics, literature, history, and culture.</p>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Latest</span>
+      <h2>Recent essays</h2>
+      <ul class="plain-list" id="recent-essays-list">
+        <li>
+          <span class="title">[Essay title]</span>
+          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
+        </li>
+        <li>
+          <span class="title">[Essay title]</span>
+          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
+        </li>
+        <li>
+          <span class="title">[Essay title]</span>
+          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
+        </li>
+      </ul>
+      <p class="todo">TODO — set your real Substack feed URL in SUBSTACK_FEED_URL near the bottom of this file (it's yourpublication.substack.com/feed). Once set, this list loads your most recent posts automatically and these placeholders disappear. If the fetch fails, these placeholders stay put as a fallback.</p>
+      <div class="chip-row">
+        <a class="chip" href="https://substack.com/" target="_blank" rel="noopener">Read on Substack &rarr;</a>
+      </div>
+      <p class="todo">TODO — replace with your actual Substack URL.</p>
+    </div>
+  </section>
+
+  <!-- ============ MUSIC ============ -->
+  <section id="panel-music" class="tabpanel" role="tabpanel" aria-labelledby="tab-music" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">Music</span>
+      <h1>Music</h1>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Choir</span>
+      <h2>Choir</h2>
+      <div class="body">
+        <p class="todo">TODO — a couple of sentences: which choir, what kind of repertoire, how long you've sung with them.</p>
+        <p>[Choir description.]</p>
+      </div>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Irish traditional music</span>
+      <h2>Irish traditional music</h2>
+      <div class="body">
+        <p>[Instrument(s), sessions you play in, and any groups worth naming.]</p>
+      </div>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Band</span>
+      <h2>Unquiet Grind</h2>
+      <div class="body">
+        <p>[A sentence or two on the band — what kind of music, who's in it, where people can hear it.]</p>
+      </div>
+      <div class="chip-row">
+        <a class="chip" href="#" target="_blank" rel="noopener">Listen</a>
+      </div>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Recordings</span>
+      <h2>Recordings</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Track or release title]</span>
+          <span class="meta">[Year] · <a href="#">listen</a></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Performances</span>
+      <h2>Upcoming performances</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Event name]</span>
+          <span class="meta">[Date] · [Venue, city]</span>
+        </li>
+      </ul>
+      <p class="todo">TODO — update this list by hand as shows are booked; remove past ones as they pass.</p>
+    </div>
+  </section>
+
+  <!-- ============ PODCAST ============ -->
+  <section id="panel-podcast" class="tabpanel" role="tabpanel" aria-labelledby="tab-podcast" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">Podcast</span>
+      <h1>Statistorians</h1>
+      <p class="dek">[One sentence on what the podcast is about, once it exists.]</p>
+    </div>
+
+    <div class="section wrap">
+      <div class="body">
+        <p class="todo">TODO — until the first episode is out, this panel can just say so plainly. Once episodes exist, list them below, newest first, and add the platform links.</p>
+        <p>New episodes coming soon.</p>
+      </div>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Episode title]</span>
+          <span class="meta">[Date] · <a href="#">Spotify</a> · <a href="#">Apple Podcasts</a></span>
+        </li>
+      </ul>
+      <div class="chip-row">
+        <a class="chip" href="#" target="_blank" rel="noopener">Spotify</a>
+        <a class="chip" href="#" target="_blank" rel="noopener">Apple Podcasts</a>
+        <a class="chip" href="#" target="_blank" rel="noopener">RSS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CV ============ -->
+  <section id="panel-cv" class="tabpanel" role="tabpanel" aria-labelledby="tab-cv" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">CV</span>
+      <h1>Curriculum Vitae</h1>
+    </div>
+
+    <div class="section wrap">
+      <div class="chip-row">
+        <button class="chip" type="button" onclick="window.print()">Print / Save as PDF</button>
+      </div>
+      <p class="todo">TODO — this button opens the browser's print dialog, which can save straight to PDF if anyone wants a file version. No separate PDF to keep in sync — this page is the only copy that needs updating.</p>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Positions</span>
+      <h2>Positions</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Role, institution]</span>
+          <span class="meta">[Years]</span>
+        </li>
+        <li>
+          <span class="title">[Role, institution]</span>
+          <span class="meta">[Years]</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Education</span>
+      <h2>Education</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Degree, institution]</span>
+          <span class="meta">[Years]</span>
+        </li>
+        <li>
+          <span class="title">[Degree, institution]</span>
+          <span class="meta">[Years]</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Awards &amp; Funding</span>
+      <h2>Awards &amp; Funding</h2>
+      <ul class="plain-list">
+        <li>
+          <span class="title">[Award or grant name]</span>
+          <span class="meta">[Funder / institution] · [Year]</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Skills</span>
+      <h2>Technical skills</h2>
+      <div class="body">
+        <p>[e.g. R, Python, Stan, SQL — whatever's actually relevant, as a short plain sentence rather than a list if you'd rather keep it brief.]</p>
+      </div>
+    </div>
+
+    <!--
+      TODO — to add another CV section (Teaching, Service, Editorial
+      Activity, Talks, Languages, whatever you need), copy one of the
+      blocks above:
+
+      <div class="section wrap">
+        <span class="eyebrow">Section name</span>
+        <h2>Section name</h2>
+        <ul class="plain-list">
+          <li>
+            <span class="title">[Item title]</span>
+            <span class="meta">[Detail] · [Year]</span>
+          </li>
+        </ul>
+      </div>
+    -->
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="panel-contact" class="tabpanel" role="tabpanel" aria-labelledby="tab-contact" tabindex="0" hidden>
+    <div class="page-header wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Contact</h1>
+    </div>
+
+    <div class="section wrap">
+      <ul class="plain-list">
+        <li>
+          <span class="title">Email</span>
+          <span class="meta"><a href="mailto:owen@owenthomas.no">owen@owenthomas.no</a></span>
+        </li>
+        <li>
+          <span class="title">GitHub</span>
+          <span class="meta"><a href="https://github.com/owenthomas" target="_blank" rel="noopener">github.com/owenthomas</a></span>
+        </li>
+        <li>
+          <span class="title">LinkedIn</span>
+          <span class="meta"><a href="#" target="_blank" rel="noopener">[LinkedIn URL]</a></span>
+        </li>
+        <li>
+          <span class="title">Bluesky</span>
+          <span class="meta"><a href="#" target="_blank" rel="noopener">[Bluesky handle]</a></span>
+        </li>
+      </ul>
+      <p class="todo">TODO — swap in your real email address and profile URLs. The email above is a guess based on your domain; replace it if that's not the right address.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; 2026 Owen Thomas</span>
+    <span><a href="https://github.com/owenthomas/personal-website" target="_blank" rel="noopener">Site source</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ---------------------------------------------------------
+  // Section flags — set any of these to false to pull that
+  // section out of the public site entirely (no tab, no panel,
+  // no way to reach it by URL) while you keep working on it.
+  // Flip back to true whenever it's ready to launch. Leave
+  // "home" set to true always.
+  // ---------------------------------------------------------
+  var SECTION_FLAGS = {
+    home: true,
+    about: true,
+    research: true,
+    writing: true,
+    music: true,
+    podcast: false, // TODO: no podcast yet — flip to true at launch
+    cv: true,
+    contact: true
+  };
+
+  Object.keys(SECTION_FLAGS).forEach(function (id) {
+    if (SECTION_FLAGS[id]) return;
+    var tab = document.getElementById('tab-' + id);
+    var panel = document.getElementById('panel-' + id);
+    var entry = document.getElementById('contents-' + id);
+    if (tab) tab.remove();
+    if (panel) panel.remove();
+    if (entry) entry.remove();
+  });
+
+  // Renumber whatever's left in the homepage contents list so it
+  // reads 01, 02, 03… with no gaps where a disabled section was.
+  Array.prototype.slice.call(document.querySelectorAll('.contents li .num')).forEach(function (el, i) {
+    el.textContent = String(i + 1).padStart(2, '0');
+  });
+
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.tabpanel'));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var tabList = document.querySelector('[role="tablist"]');
+
+  var titles = {
+    home: 'Owen Thomas',
+    about: 'About — Owen Thomas',
+    research: 'Research — Owen Thomas',
+    writing: 'Writing — Owen Thomas',
+    music: 'Music — Owen Thomas',
+    podcast: 'Statistorians — Owen Thomas',
+    cv: 'CV — Owen Thomas',
+    contact: 'Contact — Owen Thomas'
+  };
+
+  function idFromHash() {
+    var id = (location.hash || '#home').slice(1);
+    return document.getElementById('panel-' + id) ? id : 'home';
+  }
+
+  function activate(id) {
+    panels.forEach(function (p) {
+      p.hidden = p.id !== 'panel-' + id;
+    });
+    tabs.forEach(function (t) {
+      var match = t.dataset.tab === id;
+      t.setAttribute('aria-selected', match ? 'true' : 'false');
+      t.tabIndex = match ? 0 : -1;
+    });
+    if (titles[id]) document.title = titles[id];
+  }
+
+  window.addEventListener('hashchange', function () {
+    activate(idFromHash());
+  });
+
+  activate(idFromHash());
+
+  // Roving tabindex + arrow-key navigation per the WAI-ARIA tabs pattern.
+  if (tabList) {
+    tabList.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(document.activeElement);
+      if (i === -1) return;
+      var next = null;
+      if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+      else if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === 'Home') next = tabs[0];
+      else if (e.key === 'End') next = tabs[tabs.length - 1];
+      if (next) {
+        e.preventDefault();
+        next.focus();
+        location.hash = '#' + next.dataset.tab;
+      }
+    });
+  }
+})();
+</script>
+
+<script>
+(function () {
+  // ---------------------------------------------------------
+  // Live content loading — Substack essays + ORCID publications
+  //
+  // CONFIG — replace these two values with your own:
+  var SUBSTACK_FEED_URL = 'https://YOURPUBLICATION.substack.com/feed'; // TODO
+  var ORCID_ID = '0000-0000-0000-0000'; // TODO — e.g. 0000-0002-1825-0097
+  //
+  // Substack loads via rss2json.com's free anonymous tier, which is
+  // shared across all their free users and can occasionally 429 under
+  // load. If that happens often, get a free key at rss2json.com/docs
+  // and append &api_key=YOURKEY to the endpoint URL below.
+  //
+  // ORCID's public API supports CORS directly, so no proxy is needed
+  // there — it's a plain fetch straight to pub.orcid.org.
+  //
+  // Both fail silently and leave the hand-written placeholder list
+  // items in place if the fetch doesn't succeed, so a bad config or a
+  // network hiccup never leaves a broken-looking page.
+  // ---------------------------------------------------------
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function loadSubstack() {
+    var list = document.getElementById('recent-essays-list');
+    if (!list) return;
+    var endpoint = 'https://api.rss2json.com/v1/api.json?count=4&rss_url=' + encodeURIComponent(SUBSTACK_FEED_URL);
+
+    fetch(endpoint)
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.status !== 'ok' || !data.items || !data.items.length) return;
+        list.innerHTML = '';
+        data.items.slice(0, 4).forEach(function (item) {
+          var d = new Date(item.pubDate);
+          var dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+          var li = document.createElement('li');
+          li.innerHTML =
+            '<span class="title">' + escapeHtml(item.title) + '</span>' +
+            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + item.link + '" target="_blank" rel="noopener">read on Substack</a></span>';
+          list.appendChild(li);
+        });
+      })
+      .catch(function () { /* placeholders stay as-is */ });
+  }
+
+  function loadOrcid() {
+    var list = document.getElementById('publications-list');
+    if (!list) return;
+    var endpoint = 'https://pub.orcid.org/v3.0/' + ORCID_ID + '/works';
+
+    fetch(endpoint, { headers: { Accept: 'application/json' } })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (!data.group || !data.group.length) return;
+
+        var works = data.group.map(function (g) {
+          var w = g['work-summary'][0];
+          var year = (w['publication-date'] && w['publication-date'].year) ? w['publication-date'].year.value : '';
+          var extIds = (w['external-ids'] && w['external-ids']['external-id']) || [];
+          var doi = extIds.filter(function (e) { return e['external-id-type'] === 'doi'; })[0];
+          var link = doi && doi['external-id-url'] ? doi['external-id-url'].value
+                    : (w.url && w.url.value ? w.url.value : null);
+          return {
+            title: (w.title && w.title.title) ? w.title.title.value : 'Untitled',
+            year: year,
+            journal: w['journal-title'] ? w['journal-title'].value : '',
+            link: link
+          };
+        }).sort(function (a, b) { return (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0); });
+
+        list.innerHTML = '';
+        works.slice(0, 4).forEach(function (w) {
+          var meta = [w.journal, w.year].filter(Boolean).map(escapeHtml).join(' · ');
+          var linkHtml = w.link ? ' · <a href="' + w.link + '" target="_blank" rel="noopener">link</a>' : '';
+          var li = document.createElement('li');
+          li.innerHTML =
+            '<span class="title">' + escapeHtml(w.title) + '</span>' +
+            '<span class="meta">' + meta + linkHtml + '</span>';
+          list.appendChild(li);
+        });
+      })
+      .catch(function () { /* placeholders stay as-is */ });
+  }
+
+  loadSubstack();
+  loadOrcid();
+})();
+</script>
 
 </body>
-
 </html>
