@@ -166,7 +166,7 @@ p { margin: 0 0 1.2em; }
   white-space: nowrap;
   border: 0;
 }
-
+.email-link .decoy { display: none; }
 /* ---------- hero ---------- */
 
 .hero {
@@ -775,8 +775,7 @@ p { margin: 0 0 1.2em; }
       <ul class="plain-list">
         <li>
           <span class="title">Email</span>
-          <span class="meta"><a href="mailto:o.m.t.thomas@medisin.uio.no">o.m.t.thomas@medisin.uio.no</a></span>
-        </li>
+         <span class="meta"><a class="email-link" href="#" data-user="o.m.t.thomas" data-domain="medisin.uio.no">o.m.t.thomas@<span class="decoy">no-reply.</span>medisin.uio.<span class="decoy">example.</span>no</a></span>        </li>
         <li>
           <span class="title">Bluesky</span>
           <span class="meta"><a href="https://bsky.app/profile/owenmtthomas.bsky.social" target="_blank" rel="noopener">owenmtthomas.bsky.social</a></span>
@@ -990,6 +989,10 @@ p { margin: 0 0 1.2em; }
   loadOrcid();
 })();
 </script>
-
+<script>
+document.querySelectorAll('.email-link').forEach(function (a) {
+  a.href = 'mailto:' + a.dataset.user + '@' + a.dataset.domain;
+});
+</script>
 </body>
 </html>
