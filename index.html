@@ -1005,5 +1005,16 @@ document.querySelectorAll('.email-link').forEach(function (a) {
   a.href = 'mailto:' + a.dataset.user + '@' + a.dataset.domain;
 });
 </script>
+<script>
+window.goatcounter = { no_onload: true };
+function trackPageview() {
+  window.goatcounter.count({
+    path: location.pathname + location.search + location.hash,
+  });
+}
+window.addEventListener('load', trackPageview);
+window.addEventListener('hashchange', trackPageview);
+</script>
+<script data-goatcounter="https://owenthomas.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
