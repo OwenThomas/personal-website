@@ -435,7 +435,7 @@ p { margin: 0 0 1.2em; }
             <span class="num">01</span>
             <span class="entry">
               <span class="entry-title">Essays</span>
-              <span class="entry-desc">Writing on Substack.</span>
+              <span class="entry-desc">Writing on statistics, literature, history, and culture.</span>
             </span>
             <span class="arrow">&rarr;</span>
           </a>
@@ -590,22 +590,13 @@ p { margin: 0 0 1.2em; }
       <ul class="plain-list" id="recent-essays-list">
         <li>
           <span class="title">[Essay title]</span>
-          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
-        </li>
-        <li>
-          <span class="title">[Essay title]</span>
-          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
-        </li>
-        <li>
-          <span class="title">[Essay title]</span>
-          <span class="meta">[Month Year] · <a href="#">read on Substack</a></span>
+          <span class="meta">[Month Year] · <a href="#">read the essay</a></span>
         </li>
       </ul>
-      <p class="todo">TODO — set your real Substack feed URL in SUBSTACK_FEED_URL near the bottom of this file (it's yourpublication.substack.com/feed). Once set, this list loads your most recent posts automatically and these placeholders disappear. If the fetch fails, these placeholders stay put as a fallback.</p>
+      <p class="todo">TODO — this list loads automatically from your own /feed.xml (published via _posts/, see essays/index.html). Nothing to configure — just add posts and this updates itself. Delivered by email through Buttondown's RSS-to-email, pointed at the same feed. Once you've got a real post or two in there and are ready to launch, flip SECTION_FLAGS.writing to true near the bottom of this file.</p>
       <div class="chip-row">
-        <a class="chip" href="https://substack.com/@theosloreview/" target="_blank" rel="noopener">Read on Substack &rarr;</a>
+        <a class="chip" href="/essays/">All essays &rarr;</a>
       </div>
-      <p class="todo">TODO — replace with your actual Substack URL.</p>
     </div>
   </section>
 
@@ -909,23 +900,21 @@ p { margin: 0 0 1.2em; }
 <script>
 (function () {
   // ---------------------------------------------------------
-  // Live content loading — Substack essays + ORCID publications
+  // Live content loading — own essays feed + ORCID publications
   //
-  // CONFIG — replace these two values with your own:
-  var SUBSTACK_FEED_URL = 'https://theosloreview.substack.com/feed'; // TODO
-  var ORCID_ID = '0000-0001-5199-4269'; // TODO — e.g. 0000-0002-1825-0097
-  //
-  // Substack loads via rss2json.com's free anonymous tier, which is
-  // shared across all their free users and can occasionally 429 under
-  // load. If that happens often, get a free key at rss2json.com/docs
-  // and append &api_key=YOURKEY to the endpoint URL below.
+  // Essays load from /feed.xml — same domain as this page, generated
+  // automatically by Jekyll from whatever's in _posts/. No config
+  // needed, no third-party proxy needed (same-origin fetches aren't
+  // subject to the CORS restriction the old Substack version had to
+  // work around).
   //
   // ORCID's public API supports CORS directly, so no proxy is needed
-  // there — it's a plain fetch straight to pub.orcid.org.
+  // there either — it's a plain fetch straight to pub.orcid.org.
   //
   // Both fail silently and leave the hand-written placeholder list
   // items in place if the fetch doesn't succeed, so a bad config or a
   // network hiccup never leaves a broken-looking page.
+  var ORCID_ID = '0000-0001-5199-4269';
   // ---------------------------------------------------------
 
   function escapeHtml(str) {
@@ -934,23 +923,27 @@ p { margin: 0 0 1.2em; }
     return div.innerHTML;
   }
 
-  function loadSubstack() {
+  function loadEssays() {
     var list = document.getElementById('recent-essays-list');
     if (!list) return;
-    var endpoint = 'https://api.rss2json.com/v1/api.json?count=4&rss_url=' + encodeURIComponent(SUBSTACK_FEED_URL);
 
-    fetch(endpoint)
-      .then(function (res) { return res.json(); })
-      .then(function (data) {
-        if (data.status !== 'ok' || !data.items || !data.items.length) return;
+    fetch('/feed.xml')
+      .then(function (res) { return res.text(); })
+      .then(function (xmlText) {
+        var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+        var items = Array.prototype.slice.call(xml.querySelectorAll('item')).slice(0, 4);
+        if (!items.length) return;
         list.innerHTML = '';
-        data.items.slice(0, 4).forEach(function (item) {
-          var d = new Date(item.pubDate);
+        items.forEach(function (item) {
+          var title = item.querySelector('title') ? item.querySelector('title').textContent : 'Untitled';
+          var link = item.querySelector('link') ? item.querySelector('link').textContent : '/essays/';
+          var pubDate = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent : '';
+          var d = new Date(pubDate);
           var dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
           var li = document.createElement('li');
           li.innerHTML =
-            '<span class="title">' + escapeHtml(item.title) + '</span>' +
-            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + item.link + '" target="_blank" rel="noopener">read on Substack</a></span>';
+            '<span class="title">' + escapeHtml(title) + '</span>' +
+            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + link + '">read the essay</a></span>';
           list.appendChild(li);
         });
       })
@@ -996,7 +989,7 @@ p { margin: 0 0 1.2em; }
       .catch(function () { /* placeholders stay as-is */ });
   }
 
-  loadSubstack();
+  loadEssays();
   loadOrcid();
 })();
 </script>
@@ -1008,9 +1001,11 @@ document.querySelectorAll('.email-link').forEach(function (a) {
 <script>
 window.goatcounter = { no_onload: true };
 function trackPageview() {
-  window.goatcounter.count({
-    path: location.pathname + location.search + location.hash,
-  });
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({
+      path: location.pathname + location.search + location.hash,
+    });
+  }
 }
 window.addEventListener('load', trackPageview);
 window.addEventListener('hashchange', trackPageview);
