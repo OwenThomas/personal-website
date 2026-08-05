@@ -11,30 +11,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
-<link rel="alternate" type="application/rss+xml" title="Owen Thomas — Essays" href="{{ '/feed.xml' | absolute_url }}">
+<link rel="alternate" type="application/atom+xml" title="The Oslo Review" href="{{ '/feed.xml' | absolute_url }}">
 </head>
 <body>
- 
+
 <header class="site-header">
   <div class="wrap">
     <a class="site-mark" href="/">Owen Thomas</a>
-    <nav class="header-nav" aria-label="Essays navigation">
-      <a href="/essays/">All essays</a>
+    <nav class="header-nav" aria-label="Dispatches navigation">
+      <a href="/dispatches/">All dispatches</a>
       <a href="/#home">Home</a>
       <a href="/feed.xml">RSS</a>
     </nav>
   </div>
 </header>
- 
+
 {{ content }}
- 
+
 <footer class="site-footer">
   <div class="wrap">&copy; {{ site.time | date: '%Y' }} Owen Thomas</div>
 </footer>
- 
+
 </body>
 </html>
- 
-
-
-
