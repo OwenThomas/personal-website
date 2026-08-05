@@ -923,7 +923,7 @@ p { margin: 0 0 1.2em; }
     return div.innerHTML;
   }
 
-  function loadEssays() {
+function loadEssays() {
     var list = document.getElementById('recent-essays-list');
     if (!list) return;
 
@@ -931,15 +931,20 @@ p { margin: 0 0 1.2em; }
       .then(function (res) { return res.text(); })
       .then(function (xmlText) {
         var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
-        var items = Array.prototype.slice.call(xml.querySelectorAll('item')).slice(0, 4);
-        if (!items.length) return;
+        var entries = Array.prototype.slice.call(xml.querySelectorAll('entry')).slice(0, 4);
+        if (!entries.length) return;
         list.innerHTML = '';
-        items.forEach(function (item) {
-          var title = item.querySelector('title') ? item.querySelector('title').textContent : 'Untitled';
-          var link = item.querySelector('link') ? item.querySelector('link').textContent : '/essays/';
-          var pubDate = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent : '';
-          var d = new Date(pubDate);
-          var dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        entries.forEach(function (entry) {
+          var titleEl = entry.querySelector('title');
+          var title = titleEl ? titleEl.textContent : 'Untitled';
+          var linkEl = entry.querySelector('link');
+          var link = linkEl ? linkEl.getAttribute('href') : '/essays/';
+          var dateEl = entry.querySelector('published') || entry.querySelector('updated');
+          var dateStr = '';
+          if (dateEl) {
+            var d = new Date(dateEl.textContent);
+            dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+          }
           var li = document.createElement('li');
           li.innerHTML =
             '<span class="title">' + escapeHtml(title) + '</span>' +
@@ -949,7 +954,7 @@ p { margin: 0 0 1.2em; }
       })
       .catch(function () { /* placeholders stay as-is */ });
   }
-
+   
   function loadOrcid() {
     var list = document.getElementById('publications-list');
     if (!list) return;
