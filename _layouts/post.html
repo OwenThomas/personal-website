@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<article class="wrap">
+  <div class="post-header">
+    <span class="eyebrow">Essay</span>
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta">{{ page.date | date: "%-d %B %Y" }}</p>
+  </div>
+
+  <div class="post-body">
+    {{ content }}
+  </div>
+
+  <div class="post-footer-nav">
+    <a href="/essays/">&larr; All essays</a>
+  </div>
+</article>
+
+<div class="comments-section wrap">
+  <span class="eyebrow">Discussion</span>
+
+  <!--
+    TODO — this is a placeholder. Once you've enabled Discussions on
+    your GitHub repo and set up the giscus app at https://giscus.app,
+    that page will generate the real values for the four data-* fields
+    below (data-repo, data-repo-id, data-category, data-category-id).
+    Copy them in exactly as given — these placeholders won't work.
+  -->
+  <script src="https://giscus.app/client.js"
+    data-repo="YOUR-GITHUB-USERNAME/YOUR-REPO-NAME"
+    data-repo-id="TODO-FROM-GISCUS.APP"
+    data-category="Comments"
+    data-category-id="TODO-FROM-GISCUS.APP"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="dark_dimmed"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
