@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------
-   owenthomas.no/essays — shares the hub's design tokens exactly.
+   owenthomas.no/dispatches — shares the hub's design tokens exactly.
    If you change the palette/fonts in index.html, mirror the
    change here too (the two files aren't linked automatically).
    --------------------------------------------------------- */
@@ -119,37 +119,37 @@ pre code { background: none; padding: 0; }
 .header-nav a { text-decoration: none; color: var(--ink-soft); }
 .header-nav a:hover { color: var(--accent); }
 
-/* ---------- essay archive list ---------- */
+/* ---------- dispatch archive list ---------- */
 
-.essay-list {
+.dispatch-list {
   list-style: none;
   margin: 1rem 0 3rem;
   padding: 0;
   border-top: 1px solid var(--rule);
 }
-.essay-list li { border-bottom: 1px solid var(--rule); }
-.essay-list a {
+.dispatch-list li { border-bottom: 1px solid var(--rule); }
+.dispatch-list a {
   display: block;
   padding: 1.3rem 0.25rem;
   text-decoration: none;
   color: var(--ink);
 }
-.essay-list a:hover { background: var(--accent-soft); }
-.essay-list a:hover .essay-title { color: var(--accent); }
-.essay-title {
+.dispatch-list a:hover { background: var(--accent-soft); }
+.dispatch-list a:hover .dispatch-title { color: var(--accent); }
+.dispatch-title {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.25rem;
   display: block;
 }
-.essay-meta {
+.dispatch-meta {
   font-family: var(--mono);
   font-size: 0.78rem;
   color: var(--ink-soft);
   display: block;
   margin-top: 0.3rem;
 }
-.essay-excerpt {
+.dispatch-excerpt {
   color: var(--ink-soft);
   font-size: 0.95rem;
   margin-top: 0.4rem;
@@ -178,6 +178,61 @@ pre code { background: none; padding: 0; }
   padding: 2rem 0 3rem;
 }
 .comments-section .eyebrow { display: block; margin-bottom: 1rem; }
+
+/* ---------- newsletter subscribe form ---------- */
+
+.subscribe-section {
+  border-top: 1px solid var(--rule);
+  padding: 2.2rem 0;
+}
+.subscribe-section .eyebrow { margin-bottom: 0.6rem; }
+.subscribe-section h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+.subscribe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 0.4rem;
+}
+.subscribe-form input[type="email"] {
+  flex: 1;
+  min-width: 12rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 0.55rem 0.85rem;
+}
+.subscribe-form input[type="email"]::placeholder { color: var(--ink-soft); }
+.subscribe-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.subscribe-form input[type="submit"] {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+.subscribe-form input[type="submit"]:hover { opacity: 0.88; }
+.subscribe-form .powered-by {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
 
 /* ---------- footer ---------- */
 
