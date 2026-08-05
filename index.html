@@ -313,6 +313,42 @@ p { margin: 0 0 1.2em; }
 
 .plain-list .title { font-weight: 600; }
 
+/* ---------- dispatch preview list (mirrors /dispatches/ archive styling) ---------- */
+
+.dispatch-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.dispatch-list li { border-bottom: 1px solid var(--rule); }
+.dispatch-list a {
+  display: block;
+  padding: 1.3rem 0.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.dispatch-list a:hover { background: var(--accent-soft); }
+.dispatch-list a:hover .dispatch-title { color: var(--accent); }
+.dispatch-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: block;
+}
+.dispatch-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.3rem;
+}
+.dispatch-excerpt {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
 /* ---------- external link chip row ---------- */
 
 .chip-row {
@@ -634,10 +670,13 @@ p { margin: 0 0 1.2em; }
 
     <div class="section wrap">
       <h2>Recent dispatches</h2>
-      <ul class="plain-list" id="recent-dispatches-list">
+      <ul class="dispatch-list" id="recent-dispatches-list">
         <li>
-          <span class="title">[Dispatch title]</span>
-          <span class="meta">[Month Year] · <a href="#">read</a></span>
+          <a href="#">
+            <span class="dispatch-title">[Dispatch title]</span>
+            <span class="dispatch-meta">[Month Year]</span>
+            <span class="dispatch-excerpt">A short preview will appear here automatically once you've published a real one.</span>
+          </a>
         </li>
       </ul>
       <div class="chip-row">
@@ -988,7 +1027,7 @@ p { margin: 0 0 1.2em; }
       .then(function (res) { return res.text(); })
       .then(function (xmlText) {
         var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
-        var entries = Array.prototype.slice.call(xml.querySelectorAll('entry')).slice(0, 4);
+        var entries = Array.prototype.slice.call(xml.querySelectorAll('entry')).slice(0, 3);
         if (!entries.length) return;
         list.innerHTML = '';
         entries.forEach(function (entry) {
@@ -1002,10 +1041,21 @@ p { margin: 0 0 1.2em; }
             var d = new Date(dateEl.textContent);
             dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
           }
+          // Mirrors the archive page's {{ post.excerpt | strip_html | truncate: 160 }},
+          // done client-side since the feed only gives us full HTML content.
+          var contentEl = entry.querySelector('content');
+          var excerpt = '';
+          if (contentEl) {
+            var plain = contentEl.textContent.replace(/\s+/g, ' ').trim();
+            excerpt = plain.length > 160 ? plain.slice(0, 160).replace(/\s+\S*$/, '') + '…' : plain;
+          }
           var li = document.createElement('li');
           li.innerHTML =
-            '<span class="title">' + escapeHtml(title) + '</span>' +
-            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + link + '">read</a></span>';
+            '<a href="' + link + '">' +
+              '<span class="dispatch-title">' + escapeHtml(title) + '</span>' +
+              '<span class="dispatch-meta">' + escapeHtml(dateStr) + '</span>' +
+              (excerpt ? '<span class="dispatch-excerpt">' + escapeHtml(excerpt) + '</span>' : '') +
+            '</a>';
           list.appendChild(li);
         });
       })
