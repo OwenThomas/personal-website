@@ -1,9 +1,9 @@
-title: Owen Thomas
-description: Essays on statistics, literature, history, and culture.
+title: The Oslo Review
+description: Dispatches on statistics, literature, history, and culture.
 url: "https://owenthomas.no"
 
-# Essays live at owenthomas.no/essays/YYYY/MM/DD/title/
-permalink: /essays/:year/:month/:day/:title/
+# Dispatches live at owenthomas.no/dispatches/YYYY/MM/DD/title/
+permalink: /dispatches/:year/:month/:day/:title/
 
 # jekyll-feed generates /feed.xml automatically from everything in _posts —
 # this is what Buttondown's RSS-to-email will watch.
@@ -15,7 +15,7 @@ feed:
 
 # Only these get Jekyll's template/markdown processing. index.html and the
 # other hub pages at the repo root are plain static files and are left
-# completely alone — this only touches /essays, /_layouts, /_posts, /assets.
+# completely alone — this only touches /dispatches, /_layouts, /_posts, /assets.
 collections:
   posts:
     output: true
