@@ -1039,14 +1039,21 @@ p { margin: 0 0 1.2em; }
           var dateStr = '';
           if (dateEl) {
             var d = new Date(dateEl.textContent);
-            dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+            dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
           }
           // Mirrors the archive page's {{ post.excerpt | strip_html | truncate: 160 }},
           // done client-side since the feed only gives us full HTML content.
           var contentEl = entry.querySelector('content');
           var excerpt = '';
           if (contentEl) {
-            var plain = contentEl.textContent.replace(/\s+/g, ' ').trim();
+            // contentEl.textContent is the feed's HTML as a decoded string
+            // (e.g. literally "<p>First…</p>"), not real elements — running
+            // it through a detached div's innerHTML parses it as actual
+            // HTML so .textContent then genuinely strips the tags, instead
+            // of leaving stray "<p>" text behind.
+            var tmp = document.createElement('div');
+            tmp.innerHTML = contentEl.textContent;
+            var plain = tmp.textContent.replace(/\s+/g, ' ').trim();
             excerpt = plain.length > 160 ? plain.slice(0, 160).replace(/\s+\S*$/, '') + '…' : plain;
           }
           var li = document.createElement('li');
