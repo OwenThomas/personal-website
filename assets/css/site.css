@@ -1,0 +1,192 @@
+/* ---------------------------------------------------------
+   owenthomas.no/essays — shares the hub's design tokens exactly.
+   If you change the palette/fonts in index.html, mirror the
+   change here too (the two files aren't linked automatically).
+   --------------------------------------------------------- */
+
+:root {
+  --bg: #4f2683;
+  --bg-deep: #3a1c5f;
+  --surface: #6737a5;
+  --ink: #ffffff;
+  --ink-soft: #f1e9f2;
+  --rule: rgba(255, 255, 255, 0.2);
+  --rule-strong: rgba(255, 255, 255, 0.42);
+  --accent: #ffc62f;
+  --accent-ink: #3a1c5f;
+  --accent-soft: rgba(255, 198, 47, 0.16);
+
+  --font-display: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 40rem;
+  --gutter: clamp(1.5rem, 5vw, 4rem);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a { color: var(--ink); text-decoration-color: var(--rule-strong); text-underline-offset: 0.15em; }
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 1.6em 0 0.5em;
+}
+
+p, ul, ol, blockquote { max-width: var(--measure); }
+p { margin: 0 0 1.3em; }
+
+blockquote {
+  margin: 1.5em 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-soft);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  background: var(--bg-deep);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+pre code { background: none; padding: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- header ---------- */
+
+.site-header {
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.4rem 0;
+}
+.site-header .wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.site-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.header-nav {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  display: flex;
+  gap: 1.2rem;
+}
+.header-nav a { text-decoration: none; color: var(--ink-soft); }
+.header-nav a:hover { color: var(--accent); }
+
+/* ---------- essay archive list ---------- */
+
+.essay-list {
+  list-style: none;
+  margin: 1rem 0 3rem;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.essay-list li { border-bottom: 1px solid var(--rule); }
+.essay-list a {
+  display: block;
+  padding: 1.3rem 0.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.essay-list a:hover { background: var(--accent-soft); }
+.essay-list a:hover .essay-title { color: var(--accent); }
+.essay-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: block;
+}
+.essay-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.3rem;
+}
+.essay-excerpt {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+/* ---------- single post ---------- */
+
+.post-header { padding: 3rem 0 1rem; }
+.post-header h1 { margin-top: 0; font-size: clamp(1.9rem, 4.5vw, 2.6rem); }
+.post-meta { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
+
+.post-body { padding-bottom: 2rem; }
+
+.post-footer-nav {
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 0;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+.post-footer-nav a { text-decoration: none; }
+
+/* ---------- comments ---------- */
+
+.comments-section {
+  border-top: 1px solid var(--rule);
+  padding: 2rem 0 3rem;
+}
+.comments-section .eyebrow { display: block; margin-bottom: 1rem; }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  background: var(--bg-deep);
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+  padding: 1.6rem 0 3rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
