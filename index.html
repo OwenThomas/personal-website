@@ -634,17 +634,20 @@ p { margin: 0 0 1.2em; }
 
     <div class="section wrap">
       <h2>Recent dispatches</h2>
-      <ul class="plain-list" id="recent-dispatches-list">
+      <ul class="dispatch-list" id="recent-dispatches-list">
         <li>
-          <span class="title">[Dispatch title]</span>
-          <span class="meta">[Month Year] · <a href="#">read</a></span>
+          <a href="#">
+            <span class="dispatch-title">[Dispatch title]</span>
+            <span class="dispatch-meta">[Month Year]</span>
+            <span class="dispatch-excerpt">A short preview will appear here automatically once you've published a real one.</span>
+          </a>
         </li>
       </ul>
       <div class="chip-row">
         <a class="chip" href="/dispatches/">Archive &rarr;</a>
       </div>
     </div>
-
+     
     <div class="section wrap">
       <h2>Subscribe to The Oslo Review</h2>
       <form action="https://buttondown.com/api/emails/embed-subscribe/theosloreview" method="post" class="subscribe-form">
