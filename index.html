@@ -341,6 +341,54 @@ p { margin: 0 0 1.2em; }
   border-color: var(--accent);
 }
 
+/* ---------- newsletter subscribe form ---------- */
+
+.subscribe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 0.4rem;
+}
+
+.subscribe-form input[type="email"] {
+  flex: 1;
+  min-width: 12rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 0.55rem 0.85rem;
+}
+.subscribe-form input[type="email"]::placeholder { color: var(--ink-soft); }
+.subscribe-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.subscribe-form input[type="submit"] {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+.subscribe-form input[type="submit"]:hover { opacity: 0.88; }
+
+.subscribe-form .powered-by {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
+
 /* ---------- placeholder callouts (for you to edit) ---------- */
 
 .todo {
@@ -434,8 +482,8 @@ p { margin: 0 0 1.2em; }
           <a href="#writing">
             <span class="num">01</span>
             <span class="entry">
-              <span class="entry-title">Essays</span>
-              <span class="entry-desc">Writing on statistics, literature, history, and culture.</span>
+              <span class="entry-title">Writing</span>
+              <span class="entry-desc">The Oslo Review — dispatches on statistics, literature, history, and culture.</span>
             </span>
             <span class="arrow">&rarr;</span>
           </a>
@@ -581,21 +629,35 @@ p { margin: 0 0 1.2em; }
   <section id="panel-writing" class="tabpanel" role="tabpanel" aria-labelledby="tab-writing" tabindex="0" hidden>
     <div class="page-header wrap">
       <h1>Writing</h1>
-      <p class="dek">I write about statistics, literature, history, and culture.</p>
+      <p class="dek">I write The Oslo Review, a newsletter about statistics, literature, history, and culture.</p>
     </div>
 
     <div class="section wrap">
       <span class="eyebrow">Latest</span>
-      <h2>Recent essays</h2>
-      <ul class="plain-list" id="recent-essays-list">
+      <h2>Recent dispatches</h2>
+      <ul class="plain-list" id="recent-dispatches-list">
         <li>
-          <span class="title">[Essay title]</span>
-          <span class="meta">[Month Year] · <a href="#">read the essay</a></span>
+          <span class="title">[Dispatch title]</span>
+          <span class="meta">[Month Year] · <a href="#">read the dispatch</a></span>
         </li>
       </ul>
+      <p class="todo">TODO — this list loads automatically from your own /feed.xml (published via _posts/, see dispatches/index.html). Nothing to configure — just add posts and this updates itself. Delivered by email through Buttondown's RSS-to-email, pointed at the same feed. Once you've got a real one in there and are ready to launch, flip SECTION_FLAGS.writing to true near the bottom of this file.</p>
       <div class="chip-row">
-        <a class="chip" href="/essays/">All essays &rarr;</a>
+        <a class="chip" href="/dispatches/">All dispatches &rarr;</a>
       </div>
+    </div>
+
+    <div class="section wrap">
+      <span class="eyebrow">Subscribe</span>
+      <h2>Subscribe to The Oslo Review</h2>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-BUTTONDOWN-USERNAME" method="post" class="subscribe-form">
+        <label for="bd-email-writing" class="sr-only">Email address</label>
+        <input type="email" id="bd-email-writing" name="email" placeholder="you@example.com" required autocomplete="email">
+        <input type="hidden" name="embed" value="1">
+        <input type="submit" value="Subscribe">
+        <p class="powered-by"><a href="https://buttondown.com" target="_blank" rel="noopener">Powered by Buttondown</a></p>
+      </form>
+      <p class="todo">TODO — replace YOUR-BUTTONDOWN-USERNAME in the form's action URL above with your real Buttondown username (found at Buttondown → Settings → General).</p>
     </div>
   </section>
 
@@ -815,7 +877,7 @@ p { margin: 0 0 1.2em; }
     home: true,
     about: true,
     research: true,
-    writing: true,
+    writing: false,
     music: false,
     podcast: false, // TODO: no podcast yet — flip to true at launch
     cv: true,
@@ -899,9 +961,9 @@ p { margin: 0 0 1.2em; }
 <script>
 (function () {
   // ---------------------------------------------------------
-  // Live content loading — own essays feed + ORCID publications
+  // Live content loading — own dispatches feed + ORCID publications
   //
-  // Essays load from /feed.xml — same domain as this page, generated
+  // Dispatches load from /feed.xml — same domain as this page, generated
   // automatically by Jekyll from whatever's in _posts/. No config
   // needed, no third-party proxy needed (same-origin fetches aren't
   // subject to the CORS restriction the old Substack version had to
@@ -922,8 +984,8 @@ p { margin: 0 0 1.2em; }
     return div.innerHTML;
   }
 
-function loadEssays() {
-    var list = document.getElementById('recent-essays-list');
+  function loadDispatches() {
+    var list = document.getElementById('recent-dispatches-list');
     if (!list) return;
 
     fetch('/feed.xml')
@@ -937,7 +999,7 @@ function loadEssays() {
           var titleEl = entry.querySelector('title');
           var title = titleEl ? titleEl.textContent : 'Untitled';
           var linkEl = entry.querySelector('link');
-          var link = linkEl ? linkEl.getAttribute('href') : '/essays/';
+          var link = linkEl ? linkEl.getAttribute('href') : '/dispatches/';
           var dateEl = entry.querySelector('published') || entry.querySelector('updated');
           var dateStr = '';
           if (dateEl) {
@@ -947,13 +1009,13 @@ function loadEssays() {
           var li = document.createElement('li');
           li.innerHTML =
             '<span class="title">' + escapeHtml(title) + '</span>' +
-            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + link + '">read the essay</a></span>';
+            '<span class="meta">' + escapeHtml(dateStr) + ' &middot; <a href="' + link + '">read the dispatch</a></span>';
           list.appendChild(li);
         });
       })
       .catch(function () { /* placeholders stay as-is */ });
   }
-   
+
   function loadOrcid() {
     var list = document.getElementById('publications-list');
     if (!list) return;
@@ -993,7 +1055,7 @@ function loadEssays() {
       .catch(function () { /* placeholders stay as-is */ });
   }
 
-  loadEssays();
+  loadDispatches();
   loadOrcid();
 })();
 </script>
