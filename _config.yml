@@ -3,7 +3,7 @@ description: Dispatches on statistics, literature, history, and culture.
 url: "https://owenthomas.no"
 
 # Dispatches live at owenthomas.no/dispatches/YYYY/MM/DD/title/
-permalink: /dispatches/:year/:month/:day/:title/
+permalink: /theosloreview/:year/:month/:day/:title/
 
 # jekyll-feed generates /feed.xml automatically from everything in _posts —
 # this is what Buttondown's RSS-to-email will watch.
