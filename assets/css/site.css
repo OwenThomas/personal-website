@@ -78,6 +78,22 @@ pre {
   border-radius: 6px;
   overflow-x: auto;
 }
+figure {
+  margin: 1.8em 0;
+}
+figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+figcaption {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
 pre code { background: none; padding: 0; }
 
 .eyebrow {
