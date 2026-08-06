@@ -313,7 +313,7 @@ p { margin: 0 0 1.2em; }
 
 .plain-list .title { font-weight: 600; }
 
-/* ---------- dispatch preview list (mirrors /dispatches/ archive styling) ---------- */
+/* ---------- dispatch preview list (mirrors /theosloreview/ archive styling) ---------- */
 
 .dispatch-list {
   list-style: none;
@@ -680,7 +680,7 @@ p { margin: 0 0 1.2em; }
         </li>
       </ul>
       <div class="chip-row">
-        <a class="chip" href="/dispatches/">Archive &rarr;</a>
+        <a class="chip" href="/theosloreview/">Archive &rarr;</a>
       </div>
     </div>
      
@@ -1034,7 +1034,7 @@ p { margin: 0 0 1.2em; }
           var titleEl = entry.querySelector('title');
           var title = titleEl ? titleEl.textContent : 'Untitled';
           var linkEl = entry.querySelector('link');
-          var link = linkEl ? linkEl.getAttribute('href') : '/dispatches/';
+          var link = linkEl ? linkEl.getAttribute('href') : '/theosloreview/';
           var dateEl = entry.querySelector('published') || entry.querySelector('updated');
           var dateStr = '';
           if (dateEl) {
