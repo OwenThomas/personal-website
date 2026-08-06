@@ -1,0 +1,36 @@
+---
+layout: default
+title: The Oslo Review
+---
+<div class="wrap">
+  <div class="post-header">
+    <h1>The Oslo Review</h1>
+    <p class="post-meta">A newsletter on statistics, literature, science, and culture.</p>
+  </div>
+
+  <ul class="dispatch-list">
+    {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">
+        <span class="dispatch-title">{{ post.title }}</span>
+        <span class="dispatch-meta">{{ post.date | date: "%-d %B %Y" }}</span>
+        {% if post.excerpt %}<span class="dispatch-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="subscribe-section wrap">
+  <h2>Subscribe to The Oslo Review</h2>
+  <!-- TODO — replace YOUR-BUTTONDOWN-USERNAME below with your real Buttondown username. -->
+  <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-BUTTONDOWN-USERNAME" method="post" class="subscribe-form">
+    <label for="bd-email-archive" class="sr-only">Email address</label>
+    <input type="email" id="bd-email-archive" name="email" placeholder="you@example.com" required autocomplete="email">
+    <input type="hidden" name="embed" value="1">
+    <input type="submit" value="Subscribe">
+    <p class="powered-by"><a href="https://buttondown.com" target="_blank" rel="noopener">Powered by Buttondown</a></p>
+  </form>
+</div>
+
+</div>
