@@ -182,6 +182,7 @@ figcaption {
   align-items: center;
   gap: 0.9rem;
 }
+.masthead h1 { margin: 0; }
 .masthead-mark {
   width: 3.2rem;
   height: 3.2rem;
