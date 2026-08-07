@@ -13,11 +13,9 @@
 <style>
 /* ---------------------------------------------------------
    owenthomas.no — design tokens
-   Palette:  Pantone "Love Symbol #2" purple / white / warm gold accent
-   NOTE on the purple: Pantone never publicly released official
-   RGB/hex/CMYK values for Love Symbol #2. #4B384C is the value
-   commonly cited by designers as the closest match — swap it out
-   here if you get hold of the real swatch.
+   Palette:  Minnesota Vikings purple / white / Vikings gold accent
+   #4F2683 and #FFC62F are the Vikings' own official brand colors
+   (PMS 268 C and PMS 123 C).
    Type:     one cohesive family, IBM Plex — Sans for headings and
              body, Mono for nav/labels/numerals.
    --------------------------------------------------------- */
@@ -313,7 +311,7 @@ p { margin: 0 0 1.2em; }
 
 .plain-list .title { font-weight: 600; }
 
-/* ---------- dispatch preview list (mirrors /theosloreview/ archive styling) ---------- */
+/* ---------- dispatch preview list (mirrors /theoslodispatch/ archive styling) ---------- */
 
 .dispatch-list {
   list-style: none;
@@ -529,7 +527,7 @@ p { margin: 0 0 1.2em; }
             <span class="num">01</span>
             <span class="entry">
               <span class="entry-title">Writing</span>
-              <span class="entry-desc">The Oslo Review: a newsletter on statistics, literature, science, and culture.</span>
+              <span class="entry-desc"><span data-newsletter-name>The Oslo Dispatch</span>: a newsletter on statistics, literature, science, and culture.</span>
             </span>
             <span class="arrow">&rarr;</span>
           </a>
@@ -665,7 +663,7 @@ p { margin: 0 0 1.2em; }
   <section id="panel-writing" class="tabpanel" role="tabpanel" aria-labelledby="tab-writing" tabindex="0" hidden>
     <div class="page-header wrap">
       <h1>Writing</h1>
-      <p class="dek">I write The Oslo Review: a newsletter about statistics, literature, science, and culture.</p>
+      <p class="dek">I write <span data-newsletter-name>The Oslo Dispatch</span>: a newsletter about statistics, literature, science, and culture.</p>
     </div>
 
     <div class="section wrap">
@@ -680,13 +678,13 @@ p { margin: 0 0 1.2em; }
         </li>
       </ul>
       <div class="chip-row">
-        <a class="chip" href="/theosloreview/">Archive &rarr;</a>
+        <a class="chip" href="/theoslodispatch/">Archive &rarr;</a>
       </div>
     </div>
      
     <div class="section wrap">
-      <h2>Subscribe to The Oslo Review</h2>
-      <form action="https://buttondown.com/api/emails/embed-subscribe/theosloreview" method="post" class="subscribe-form">
+      <h2>Subscribe to <span data-newsletter-name>The Oslo Dispatch</span></h2>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/theoslodispatch" method="post" class="subscribe-form">
         <label for="bd-email-writing" class="sr-only">Email address</label>
         <input type="email" id="bd-email-writing" name="email" placeholder="you@example.com" required autocomplete="email">
         <input type="hidden" name="embed" value="1">
@@ -996,6 +994,22 @@ p { margin: 0 0 1.2em; }
 <script>
 (function () {
   // ---------------------------------------------------------
+  // Newsletter name — single source of truth. Every place this
+  // name appears on the page is marked with data-newsletter-name
+  // and filled in from here, so renaming the newsletter again in
+  // future only means changing this one line.
+  var NEWSLETTER_NAME = 'The Oslo Dispatch';
+  // ---------------------------------------------------------
+
+  document.querySelectorAll('[data-newsletter-name]').forEach(function (el) {
+    el.textContent = NEWSLETTER_NAME;
+  });
+})();
+</script>
+
+<script>
+(function () {
+  // ---------------------------------------------------------
   // Live content loading — own dispatches feed + ORCID publications
   //
   // Dispatches load from /feed.xml — same domain as this page, generated
@@ -1034,7 +1048,7 @@ p { margin: 0 0 1.2em; }
           var titleEl = entry.querySelector('title');
           var title = titleEl ? titleEl.textContent : 'Untitled';
           var linkEl = entry.querySelector('link');
-          var link = linkEl ? linkEl.getAttribute('href') : '/theosloreview/';
+          var link = linkEl ? linkEl.getAttribute('href') : '/theoslodispatch/';
           var dateEl = entry.querySelector('published') || entry.querySelector('updated');
           var dateStr = '';
           if (dateEl) {
