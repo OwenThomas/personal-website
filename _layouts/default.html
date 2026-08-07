@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title %}{{ page.title }} — {% endif %}Owen Thomas</title>
+<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %} — Owen Thomas</title>
 <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
 <meta name="theme-color" content="#3a1c5f">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
-<link rel="alternate" type="application/atom+xml" title="The Oslo Review" href="{{ '/feed.xml' | absolute_url }}">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
   <div class="wrap">
     <a class="site-mark" href="/">Owen Thomas</a>
     <nav class="header-nav" aria-label="Dispatches navigation">
-      <a href="/theosloreview/">Archive</a>
+      <a href="/theoslodispatch/">Archive</a>
       <a href="/#home">Home</a>
       <a href="/feed.xml">RSS</a>
     </nav>
