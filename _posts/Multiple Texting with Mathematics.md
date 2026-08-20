@@ -95,7 +95,7 @@ I failed to find this sequentially word-for-word in some classic lengthy texts, 
 There is also a curious word-level analogue to the original Trump tweet in the form of Tom Phillips’ “A Humument: A Treated Victorian Novel”. The artist involved found a forgotten Victorian novel named “A Human Document”, and proceeded to creatively paint over the vast majority of the text, leaving a second discovered text left exposed: in the words of one of the pages, “I have to hide to reveal”:
 
 <figure>
-  <img src="/assets/images/2026-08-20-MTM/a_humument.png">
+  <img src="/assets/images/2026-08-20-MTM/a_humument.jpg">
   <figcaption>Figure 3: The cover page of Tom Phillips' "A Humument: A Treated Victorian Novel"</figcaption>
 </figure>
 
