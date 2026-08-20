@@ -3,8 +3,8 @@
 The following treated tweet has emerged on social media.
 
 <figure>
-  <img src="/assets/images/2026-08-20-MTM/Pelican.jpeg">
-  <figcaption>Figure 1: The sensitive subtext to [Donald Trump’s original tweet](https://twitter.com/realdonaldtrump/status/757573051215147008).</figcaption>
+  <img src="/assets/images/2026-08-20-MTM/Pelican.jpg">
+  <figcaption>Figure 1: The sensitive subtext to [Trump’s original tweet](https://x.com/realdonaldtrump/status/757573051215147008).</figcaption>
 </figure>
 
 I am not completely sure why I found it so engaging: it suggests that a positive mindset and a little creativity can find a micro-instance of serene nature poetry, even within the narcissistic and self-pitying sea of political discourse that floods our lives. Alternatively, it suggests that Trump has a secretive sensitive side that is forced to hide poetic works in plain sight amid his usual grandiose bluster.
