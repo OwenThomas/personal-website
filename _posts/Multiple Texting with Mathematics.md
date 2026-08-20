@@ -2,8 +2,10 @@
 
 The following treated tweet has emerged on social media.
 
-![](https://substackcdn.com/image/fetch/$s_!KSKb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F430ce679-aabe-4f69-a734-b1e35274a34e_720x699.jpeg)
-_The sensitive subtext to_ [_Donald Trump’s original tweet_](https://twitter.com/realdonaldtrump/status/757573051215147008)_._
+<figure>
+  <img src="/assets/images/2026-08-20-MTM/Pelican.jpeg">
+  <figcaption>Figure 1: he sensitive subtext to_ [_Donald Trump’s original tweet_](https://twitter.com/realdonaldtrump/status/757573051215147008)_.</figcaption>
+</figure>
 
 I am not completely sure why I found it so engaging: it suggests that a positive mindset and a little creativity can find a micro-instance of serene nature poetry, even within the narcissistic and self-pitying sea of political discourse that floods our lives. Alternatively, it suggests that Trump has a secretive sensitive side that is forced to hide poetic works in plain sight amid his usual grandiose bluster.
 
@@ -19,10 +21,10 @@ First, a couple of assumptions. Let’s say we have a shorter text of length $N_
 
 Letter frequencies in English and other languages are quite well-studied, and to some degree have entered into broader culture: ETAOIN SHRDLU was a mechanical-typesetting-era printing artefact and historic meme, which can also be used as a challenging mnemonic for the order of the most commonly used letters in English.
 
-
-![](https://substackcdn.com/image/fetch/$s_!mUpx!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F89c6609f-a772-442b-b426-d6b01128f3a8_725x454.png)
-
-_Shitposting à la 1916_
+<figure>
+  <img src="/assets/images/2026-08-20-MTM/shitposting.png">
+  <figcaption>Figure 2: Shitposting à la 1916.</figcaption>
+</figure>
 
 So the different probabilities are available to us for our analysis: the question remains what to do with them. We can answer this by imagining the process of finding the smaller text within the larger one: for each letter in the shorter text, we progress sequentially through the longer text until we find the corresponding letter, then restart the process with the next letter.
 
@@ -92,8 +94,11 @@ I failed to find this sequentially word-for-word in some classic lengthy texts, 
 
 There is also a curious word-level analogue to the original Trump tweet in the form of Tom Phillips’ “A Humument: A Treated Victorian Novel”. The artist involved found a forgotten Victorian novel named “A Human Document”, and proceeded to creatively paint over the vast majority of the text, leaving a second discovered text left exposed: in the words of one of the pages, “I have to hide to reveal”:
 
-![](https://substackcdn.com/image/fetch/$s_!raP2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa7840999-2c18-4277-9711-1e559afc4c6b_1000x1316.jpeg)
-_The cover page of Tom Phillips' "A Humument: A Treated Victorian Novel"_
+<figure>
+  <img src="/assets/images/2026-08-20-MTM/a_humument.png">
+  <figcaption>Figure 3: The cover page of Tom Phillips' "A Humument: A Treated Victorian Novel"</figcaption>
+</figure>
+
 Strictly speaking, the analysis presented here only applies to the Trump poem and texts like “A Humument” in artistic retrospect. The probabilities presented are those of finding a given shorter text within a second longer one: with these two creative works, they have started with long texts and then actively searched for a smaller text of artistic interest or value within it. This demands both more aesthetic judgement and probably a shorter long text: A relevant, difficult question would be “What proportion of randomly generated strings of letters are artistically interesting sentences?” You can probably make some traction on this question with some of [the reasoning used to derive the entropy of the English language](http://languagelog.ldc.upenn.edu/myl/Shannon1950.pdf), but that would only tell you something about the probability of finding valid sentences. I cannot quite imagine a formal metric by which to judge their aesthetic value: there is, of course, no (ac-)counting for taste.
 
 Note: This article appeared originally on an now-defunct blog of mine in 2018, and is reproduced here with minor edits.
