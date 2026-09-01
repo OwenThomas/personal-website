@@ -1,0 +1,35 @@
+name: Scheduled rebuild for future-dated posts
+
+# GitHub Pages only rebuilds when something is pushed to the repo — it has
+# no awareness of time passing on its own. Without this, a post dated for
+# a future day would stay hidden not just until that day, but until
+# whenever the *next* real push after that day happens to occur, since
+# Jekyll's future-post check only runs at build time.
+#
+# This workflow makes no content changes at all — it just asks GitHub
+# to rebuild Pages once a day, so today's actual date gets re-checked
+# against every post's date automatically.
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC. Adjust the hour if you'd like posts to
+    # go live earlier or later in the day — cron time is always UTC,
+    # not local time.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}  # lets you trigger this manually from the Actions tab too
+
+permissions:
+  pages: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request a new GitHub Pages build
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }}/pages/builds
